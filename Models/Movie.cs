@@ -1,11 +1,11 @@
 
 using System.ComponentModel.DataAnnotations;
 
-namespace MoviesAPI.Models;
+namespace REST_API.Models;
 
 public class Movie
 {
-    [Key()]
+    [Key]
     public int Id { get; set; }
 
     [Required(ErrorMessage = "The Title field is required.")]

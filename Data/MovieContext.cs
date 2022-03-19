@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
-using MoviesAPI.Models;
+using REST_API.Models;
 
-namespace rest_api.Data;
+namespace REST_API.Data;
 
 public class MovieContext : DbContext
 {
@@ -11,4 +11,9 @@ public class MovieContext : DbContext
     }
 
     public DbSet<Movie> Movies { get; set; }
+
+    // Connection string configuration
+    protected override void OnConfiguring(DbContextOptionsBuilder opt) => opt.UseMySql(
+        connectionString: "Server=localhost;Port=3306;Database=movieDB;Uid=lcsef;Pwd=258456",
+        serverVersion: ServerVersion.Parse("8.0.28-mysql"));
 }

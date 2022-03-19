@@ -52,3 +52,13 @@ C:\Users\lcsef\DeveloperWS\alura\rest-api\obj\Debug\net6.0\MoviesAPI.dll
 C:\Users\lcsef\DeveloperWS\alura\rest-api\obj\Debug\net6.0\ref\MoviesAPI.dll
 C:\Users\lcsef\DeveloperWS\alura\rest-api\obj\Debug\net6.0\MoviesAPI.pdb
 C:\Users\lcsef\DeveloperWS\alura\rest-api\obj\Debug\net6.0\MoviesAPI.genruntimeconfig.cache
+C:\Users\lcsef\DeveloperWS\alura\rest-api\bin\Debug\net6.0\Humanizer.dll
+C:\Users\lcsef\DeveloperWS\alura\rest-api\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.dll
+C:\Users\lcsef\DeveloperWS\alura\rest-api\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+C:\Users\lcsef\DeveloperWS\alura\rest-api\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Design.dll
+C:\Users\lcsef\DeveloperWS\alura\rest-api\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Relational.dll
+C:\Users\lcsef\DeveloperWS\alura\rest-api\bin\Debug\net6.0\Microsoft.Extensions.Caching.Memory.dll
+C:\Users\lcsef\DeveloperWS\alura\rest-api\bin\Debug\net6.0\MySqlConnector.dll
+C:\Users\lcsef\DeveloperWS\alura\rest-api\bin\Debug\net6.0\Pomelo.EntityFrameworkCore.MySql.dll
+C:\Users\lcsef\DeveloperWS\alura\REST-API\bin\Debug\net6.0\AutoMapper.dll
+C:\Users\lcsef\DeveloperWS\alura\REST-API\bin\Debug\net6.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
