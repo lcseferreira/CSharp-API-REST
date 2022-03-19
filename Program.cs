@@ -10,7 +10,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 // DB service connection
-builder.Services.AddDbContext<MovieContext>();
+builder.Services.AddDbContext<global::REST_API.Data.AppDbContext>();
 
 // AutoMapper service
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());

@@ -17,6 +17,6 @@ public class Movie
     [MaxLength(60, ErrorMessage = "Max length is 60.")]
     public string Genre { get; set; }
 
-    [Range(1, 600, ErrorMessage = "The movie's length must be between 1 and 600 minutes.")]
+    [Range(1, 600, ErrorMessage = "The length of the movie must be between 1 and 600 minutes.")]
     public int MovieLengthInMinutes { get; set; }
 }

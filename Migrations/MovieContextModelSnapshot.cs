@@ -8,7 +8,7 @@ using REST_API.Data;
 
 namespace MoviesAPI.Migrations
 {
-    [DbContext(typeof(MovieContext))]
+    [DbContext(typeof(REST_API.Data.AppDbContext))]
     partial class MovieContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

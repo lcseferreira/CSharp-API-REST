@@ -9,7 +9,7 @@ using REST_API.Data;
 
 namespace MoviesAPI.Migrations
 {
-    [DbContext(typeof(MovieContext))]
+    [DbContext(typeof(REST_API.Data.AppDbContext))]
     [Migration("20220319114205_CreateMigration")]
     partial class CreateMigration
     {

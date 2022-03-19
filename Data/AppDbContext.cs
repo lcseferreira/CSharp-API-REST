@@ -3,14 +3,15 @@ using REST_API.Models;
 
 namespace REST_API.Data;
 
-public class MovieContext : DbContext
+public class AppDbContext : DbContext
 {
-    public MovieContext(DbContextOptions<MovieContext> opt) : base(opt)
+    public AppDbContext(DbContextOptions<AppDbContext> opt) : base(opt)
     {
 
     }
 
     public DbSet<Movie> Movies { get; set; }
+    public DbSet<MovieTheater> MovieTheaters { get; set; }
 
     // Connection string configuration
     protected override void OnConfiguring(DbContextOptionsBuilder opt) => opt.UseMySql(
