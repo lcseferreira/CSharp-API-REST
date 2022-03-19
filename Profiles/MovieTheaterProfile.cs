@@ -10,5 +10,6 @@ public class MovieTheaterProfile : Profile
     {
         CreateMap<UpdateMovieTheaterDTO, MovieTheater>();
         CreateMap<CreateMovieTheaterDTO, MovieTheater>();
+        CreateMap<MovieTheater, ReadMovieTheaterDTO>();
     }
 }

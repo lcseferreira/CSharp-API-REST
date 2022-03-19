@@ -32,7 +32,9 @@ public class MovieTheaterController : ControllerBase
 
         if (movieTheater == null) return NotFound();
 
-        return Ok(movieTheater);
+        ReadMovieTheaterDTO movieTheaterDTO = _mapper.Map<ReadMovieTheaterDTO>(movieTheater);
+
+        return Ok(movieTheaterDTO);
     }
 
     [HttpPost]
