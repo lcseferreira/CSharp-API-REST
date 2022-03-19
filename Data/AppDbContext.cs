@@ -12,6 +12,7 @@ public class AppDbContext : DbContext
 
     public DbSet<Movie> Movies { get; set; }
     public DbSet<MovieTheater> MovieTheaters { get; set; }
+    public DbSet<Address> Addresses { get; set; }
 
     // Connection string configuration
     protected override void OnConfiguring(DbContextOptionsBuilder opt) => opt.UseMySql(
