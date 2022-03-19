@@ -11,6 +11,12 @@ public class MovieController
 
     private static List<Movie> movies = new List<Movie>();
 
+    [HttpGet]
+    public IEnumerable<Movie> GetMovies() {
+        return movies;
+    }
+
+
     [HttpPost] // POST method
     public void AddMovie([FromBody] Movie movie)
     {
