@@ -2,7 +2,7 @@ using AutoMapper;
 using REST_API.Models;
 using REST_API.Data.DTOs;
 
-namespace REST_API;
+namespace REST_API.Profiles;
 
 public class MovieProfile : Profile 
 {
@@ -10,6 +10,6 @@ public class MovieProfile : Profile
     {
         CreateMap<CreateMovieDTO, Movie>();
         CreateMap<Movie, ReadMovieDTO>();
-        CreateMap<CreateMovieDTO, Movie>();
+        CreateMap<UpdateMovieDTO, Movie>();
     }     
 }

@@ -1,19 +1,19 @@
 using Microsoft.AspNetCore.Mvc;
 using REST_API.Models;
-using REST_API.Data;
 using REST_API.Data.DTOs;
 using AutoMapper;
+using REST_API.Data;
 
-namespace MoviesAPI.Controllers;
+namespace REST_API.Controllers;
 
 [ApiController]
 [Route("[controller]")]
 public class MovieController : ControllerBase
 {
-    private MovieContext _context;
+    private AppDbContext _context;
     private IMapper _mapper;
 
-    public MovieController(MovieContext context, IMapper mapper)
+    public MovieController(REST_API.Data.AppDbContext context, IMapper mapper)
     {
         _context = context;
         _mapper = mapper;
@@ -26,10 +26,10 @@ public class MovieController : ControllerBase
         return Ok(_context.Movies);
     }
 
-    [HttpGet("{id}")] // GET movie for ID
+    [HttpGet("{id}")] // GET movie by ID
     public IActionResult GetMovieById(int id)
     {
-        Movie? movie = _context.Movies.FirstOrDefault(movie => movie.Id == id);
+        Movie movie = _context.Movies.FirstOrDefault(movie => movie.Id == id);
 
         if (movie != null)
         {
@@ -54,7 +54,7 @@ public class MovieController : ControllerBase
     [HttpPut("{id}")] // UPDATE movie
     public IActionResult UpdateMovie([FromBody] UpdateMovieDTO movieDTO, int id)
     {
-        Movie? movie = _context.Movies.FirstOrDefault(movie => movie.Id == id);
+        Movie movie = _context.Movies.FirstOrDefault(movie => movie.Id == id);
 
         if (movie == null) return NotFound();
 
@@ -67,7 +67,7 @@ public class MovieController : ControllerBase
     [HttpDelete("{id}")] // DELETE movie
     public IActionResult RemoveMovie(int id)
     {
-        Movie? movie = _context.Movies.FirstOrDefault(movie => movie.Id == id);
+        Movie movie = _context.Movies.FirstOrDefault(movie => movie.Id == id);
 
         if (movie == null) return NotFound();
 
