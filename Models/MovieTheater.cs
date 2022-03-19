@@ -11,5 +11,7 @@ public class MovieTheater
     [Required(ErrorMessage = ("The Name field is required."))]
     public string MovieTheaterName { get; set; }
 
-    public Address Address { get; set; }
+    public virtual Address Address { get; set; }
+
+    public int AddressId { get; set; }
 }

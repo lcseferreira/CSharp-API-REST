@@ -19,11 +19,15 @@ public class AppDbContext : DbContext
         builder.Entity<Address>()
             .HasOne(address => address.MovieTheater)
             .WithOne(movieTheater => movieTheater.Address)
-            .HasForeignKey<MovieTheater>("AddressForeignKey");
+            .HasForeignKey<MovieTheater>(movieTheater => movieTheater.AddressId)
+            .IsRequired();
     }
 
     // Connection string configuration
-    protected override void OnConfiguring(DbContextOptionsBuilder opt) => opt.UseMySql(
-        connectionString: "Server=localhost;Port=3306;Database=movieDB;Uid=lcsef;Pwd=258456",
-        serverVersion: ServerVersion.Parse("8.0.28-mysql"));
+    protected override void OnConfiguring(DbContextOptionsBuilder opt) => opt
+        .UseLazyLoadingProxies()
+        .UseMySql(
+            connectionString: "Server=localhost;Port=3306;Database=movieDB;Uid=lcsef;Pwd=258456",
+            serverVersion: ServerVersion.Parse("8.0.28-mysql")
+            );
 }

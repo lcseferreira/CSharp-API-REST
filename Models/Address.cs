@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace REST_API.Models;
 
@@ -17,5 +18,6 @@ public class Address
     [Required]
     public int Number { get; set; }
 
-    public MovieTheater MovieTheater { get; set; }
+    [JsonIgnore]
+    public virtual MovieTheater MovieTheater { get; set; }
 }

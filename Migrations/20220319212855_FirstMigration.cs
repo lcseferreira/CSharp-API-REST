@@ -5,21 +5,12 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MoviesAPI.Migrations
 {
-    public partial class AddressMovieTheater1to1 : Migration
+    public partial class FirstMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AlterColumn<string>(
-                name: "Genre",
-                table: "Movies",
-                type: "varchar(60)",
-                maxLength: 60,
-                nullable: true,
-                oldClrType: typeof(string),
-                oldType: "varchar(60)",
-                oldMaxLength: 60)
-                .Annotation("MySql:CharSet", "utf8mb4")
-                .OldAnnotation("MySql:CharSet", "utf8mb4");
+            migrationBuilder.AlterDatabase()
+                .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
                 name: "Addresses",
@@ -40,6 +31,26 @@ namespace MoviesAPI.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
+                name: "Movies",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Title = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Director = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Genre = table.Column<string>(type: "varchar(60)", maxLength: 60, nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    MovieLengthInMinutes = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Movies", x => x.Id);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
                 name: "MovieTheaters",
                 columns: table => new
                 {
@@ -47,53 +58,37 @@ namespace MoviesAPI.Migrations
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     MovieTheaterName = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    AddressForeignKey = table.Column<int>(type: "int", nullable: true)
+                    AddressId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_MovieTheaters", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_MovieTheaters_Addresses_AddressForeignKey",
-                        column: x => x.AddressForeignKey,
+                        name: "FK_MovieTheaters_Addresses_AddressId",
+                        column: x => x.AddressId,
                         principalTable: "Addresses",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateIndex(
-                name: "IX_MovieTheaters_AddressForeignKey",
+                name: "IX_MovieTheaters_AddressId",
                 table: "MovieTheaters",
-                column: "AddressForeignKey",
+                column: "AddressId",
                 unique: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "Movies");
+
+            migrationBuilder.DropTable(
                 name: "MovieTheaters");
 
             migrationBuilder.DropTable(
                 name: "Addresses");
-
-            migrationBuilder.UpdateData(
-                table: "Movies",
-                keyColumn: "Genre",
-                keyValue: null,
-                column: "Genre",
-                value: "");
-
-            migrationBuilder.AlterColumn<string>(
-                name: "Genre",
-                table: "Movies",
-                type: "varchar(60)",
-                maxLength: 60,
-                nullable: false,
-                oldClrType: typeof(string),
-                oldType: "varchar(60)",
-                oldMaxLength: 60,
-                oldNullable: true)
-                .Annotation("MySql:CharSet", "utf8mb4")
-                .OldAnnotation("MySql:CharSet", "utf8mb4");
         }
     }
 }
