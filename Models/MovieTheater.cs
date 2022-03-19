@@ -8,6 +8,8 @@ public class MovieTheater
     [Required]
     public int Id { get; set; }
 
-    [Required(ErrorMessage = ("The name field is required."))]
+    [Required(ErrorMessage = ("The Name field is required."))]
     public string MovieTheaterName { get; set; }
+
+    public Address Address { get; set; }
 }

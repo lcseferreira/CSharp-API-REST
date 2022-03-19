@@ -16,4 +16,6 @@ public class Address
 
     [Required]
     public int Number { get; set; }
+
+    public MovieTheater MovieTheater { get; set; }
 }
