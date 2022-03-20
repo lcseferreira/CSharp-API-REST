@@ -10,8 +10,8 @@ using REST_API.Data;
 namespace MoviesAPI.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20220319212855_FirstMigration")]
-    partial class FirstMigration
+    [Migration("20220320005457_CreateMigration")]
+    partial class CreateMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -40,6 +40,20 @@ namespace MoviesAPI.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Addresses");
+                });
+
+            modelBuilder.Entity("REST_API.Models.Manager", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("ManagerName")
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Managers");
                 });
 
             modelBuilder.Entity("REST_API.Models.Movie", b =>
@@ -77,6 +91,9 @@ namespace MoviesAPI.Migrations
                     b.Property<int>("AddressId")
                         .HasColumnType("int");
 
+                    b.Property<int>("ManagerId")
+                        .HasColumnType("int");
+
                     b.Property<string>("MovieTheaterName")
                         .IsRequired()
                         .HasColumnType("longtext");
@@ -85,6 +102,8 @@ namespace MoviesAPI.Migrations
 
                     b.HasIndex("AddressId")
                         .IsUnique();
+
+                    b.HasIndex("ManagerId");
 
                     b.ToTable("MovieTheaters");
                 });
@@ -97,12 +116,25 @@ namespace MoviesAPI.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("REST_API.Models.Manager", "Manager")
+                        .WithMany("MovieTheaters")
+                        .HasForeignKey("ManagerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Address");
+
+                    b.Navigation("Manager");
                 });
 
             modelBuilder.Entity("REST_API.Models.Address", b =>
                 {
                     b.Navigation("MovieTheater");
+                });
+
+            modelBuilder.Entity("REST_API.Models.Manager", b =>
+                {
+                    b.Navigation("MovieTheaters");
                 });
 #pragma warning restore 612, 618
         }

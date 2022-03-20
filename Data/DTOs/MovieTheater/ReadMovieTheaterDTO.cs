@@ -5,4 +5,5 @@ public class ReadMovieTheaterDTO
 {
     public string MovieTheaterName { get; set; }
     public Address Address { get; set; }
+    public Manager Manager { get; set; }
 }

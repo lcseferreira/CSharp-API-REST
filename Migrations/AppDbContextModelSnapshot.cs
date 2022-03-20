@@ -89,6 +89,9 @@ namespace MoviesAPI.Migrations
                     b.Property<int>("AddressId")
                         .HasColumnType("int");
 
+                    b.Property<int>("ManagerId")
+                        .HasColumnType("int");
+
                     b.Property<string>("MovieTheaterName")
                         .IsRequired()
                         .HasColumnType("longtext");
@@ -97,6 +100,8 @@ namespace MoviesAPI.Migrations
 
                     b.HasIndex("AddressId")
                         .IsUnique();
+
+                    b.HasIndex("ManagerId");
 
                     b.ToTable("MovieTheaters");
                 });
@@ -109,12 +114,25 @@ namespace MoviesAPI.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("REST_API.Models.Manager", "Manager")
+                        .WithMany("MovieTheaters")
+                        .HasForeignKey("ManagerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Address");
+
+                    b.Navigation("Manager");
                 });
 
             modelBuilder.Entity("REST_API.Models.Address", b =>
                 {
                     b.Navigation("MovieTheater");
+                });
+
+            modelBuilder.Entity("REST_API.Models.Manager", b =>
+                {
+                    b.Navigation("MovieTheaters");
                 });
 #pragma warning restore 612, 618
         }

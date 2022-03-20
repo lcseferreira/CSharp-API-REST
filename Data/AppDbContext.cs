@@ -22,6 +22,12 @@ public class AppDbContext : DbContext
             .WithOne(movieTheater => movieTheater.Address)
             .HasForeignKey<MovieTheater>(movieTheater => movieTheater.AddressId)
             .IsRequired();
+
+        builder.Entity<MovieTheater>()
+            .HasOne(movieTheater => movieTheater.Manager)
+            .WithMany(manager => manager.MovieTheaters)
+            .HasForeignKey(movieTheater => movieTheater.ManagerId)
+            .IsRequired();
     }
 
     // Connection string configuration

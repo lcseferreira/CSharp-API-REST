@@ -6,7 +6,7 @@ using REST_API.Models;
 namespace REST_API.Controllers;
 
 [ApiController]
-[Route("{id}")]
+[Route("[controller]")]
 public class ManagerController : ControllerBase
 {
     private readonly AppDbContext _context;
