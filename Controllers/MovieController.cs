@@ -23,7 +23,7 @@ public class MovieController : ControllerBase
     [HttpGet] // GET movies
     public IActionResult GetMovies()
     {
-        return Ok(_context.Movies);
+        return Ok(_context.Movies.ToList());
     }
 
     [HttpGet("{id}")] // GET movie by ID
@@ -34,7 +34,7 @@ public class MovieController : ControllerBase
         if (movie != null)
         {
             ReadMovieDTO movieDTO = _mapper.Map<ReadMovieDTO>(movie);
-            return Ok(movie);
+            return Ok(movieDTO);
         }
 
         return NotFound();

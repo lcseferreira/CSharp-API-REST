@@ -10,8 +10,8 @@ using REST_API.Data;
 namespace MoviesAPI.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20220319212855_FirstMigration")]
-    partial class FirstMigration
+    [Migration("20220320122003_CreateMigration")]
+    partial class CreateMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -40,6 +40,20 @@ namespace MoviesAPI.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Addresses");
+                });
+
+            modelBuilder.Entity("REST_API.Models.Manager", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("ManagerName")
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Managers");
                 });
 
             modelBuilder.Entity("REST_API.Models.Movie", b =>
@@ -77,6 +91,9 @@ namespace MoviesAPI.Migrations
                     b.Property<int>("AddressId")
                         .HasColumnType("int");
 
+                    b.Property<int>("ManagerId")
+                        .HasColumnType("int");
+
                     b.Property<string>("MovieTheaterName")
                         .IsRequired()
                         .HasColumnType("longtext");
@@ -86,23 +103,85 @@ namespace MoviesAPI.Migrations
                     b.HasIndex("AddressId")
                         .IsUnique();
 
+                    b.HasIndex("ManagerId");
+
                     b.ToTable("MovieTheaters");
+                });
+
+            modelBuilder.Entity("REST_API.Models.Section", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("MovieId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MovieTheaterId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MovieId");
+
+                    b.HasIndex("MovieTheaterId");
+
+                    b.ToTable("Sections");
                 });
 
             modelBuilder.Entity("REST_API.Models.MovieTheater", b =>
                 {
                     b.HasOne("REST_API.Models.Address", "Address")
                         .WithOne("MovieTheater")
-                        .HasForeignKey("REST_API.Models.MovieTheater", "AddressId")
+                        .HasForeignKey("REST_API.Models.MovieTheater", "AddressId");
+
+                    b.HasOne("REST_API.Models.Manager", "Manager")
+                        .WithMany("MovieTheaters")
+                        .HasForeignKey("ManagerId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("Address");
+
+                    b.Navigation("Manager");
+                });
+
+            modelBuilder.Entity("REST_API.Models.Section", b =>
+                {
+                    b.HasOne("REST_API.Models.Movie", "Movie")
+                        .WithMany("Sections")
+                        .HasForeignKey("MovieId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Address");
+                    b.HasOne("REST_API.Models.MovieTheater", "MovieTheater")
+                        .WithMany("Sections")
+                        .HasForeignKey("MovieTheaterId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Movie");
+
+                    b.Navigation("MovieTheater");
                 });
 
             modelBuilder.Entity("REST_API.Models.Address", b =>
                 {
                     b.Navigation("MovieTheater");
+                });
+
+            modelBuilder.Entity("REST_API.Models.Manager", b =>
+                {
+                    b.Navigation("MovieTheaters");
+                });
+
+            modelBuilder.Entity("REST_API.Models.Movie", b =>
+                {
+                    b.Navigation("Sections");
+                });
+
+            modelBuilder.Entity("REST_API.Models.MovieTheater", b =>
+                {
+                    b.Navigation("Sections");
                 });
 #pragma warning restore 612, 618
         }
