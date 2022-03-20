@@ -10,7 +10,7 @@ using REST_API.Data;
 namespace MoviesAPI.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20220320005457_CreateMigration")]
+    [Migration("20220320122003_CreateMigration")]
     partial class CreateMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -108,23 +108,60 @@ namespace MoviesAPI.Migrations
                     b.ToTable("MovieTheaters");
                 });
 
+            modelBuilder.Entity("REST_API.Models.Section", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("MovieId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MovieTheaterId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MovieId");
+
+                    b.HasIndex("MovieTheaterId");
+
+                    b.ToTable("Sections");
+                });
+
             modelBuilder.Entity("REST_API.Models.MovieTheater", b =>
                 {
                     b.HasOne("REST_API.Models.Address", "Address")
                         .WithOne("MovieTheater")
-                        .HasForeignKey("REST_API.Models.MovieTheater", "AddressId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("REST_API.Models.MovieTheater", "AddressId");
 
                     b.HasOne("REST_API.Models.Manager", "Manager")
                         .WithMany("MovieTheaters")
                         .HasForeignKey("ManagerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Address");
 
                     b.Navigation("Manager");
+                });
+
+            modelBuilder.Entity("REST_API.Models.Section", b =>
+                {
+                    b.HasOne("REST_API.Models.Movie", "Movie")
+                        .WithMany("Sections")
+                        .HasForeignKey("MovieId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("REST_API.Models.MovieTheater", "MovieTheater")
+                        .WithMany("Sections")
+                        .HasForeignKey("MovieTheaterId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Movie");
+
+                    b.Navigation("MovieTheater");
                 });
 
             modelBuilder.Entity("REST_API.Models.Address", b =>
@@ -135,6 +172,16 @@ namespace MoviesAPI.Migrations
             modelBuilder.Entity("REST_API.Models.Manager", b =>
                 {
                     b.Navigation("MovieTheaters");
+                });
+
+            modelBuilder.Entity("REST_API.Models.Movie", b =>
+                {
+                    b.Navigation("Sections");
+                });
+
+            modelBuilder.Entity("REST_API.Models.MovieTheater", b =>
+                {
+                    b.Navigation("Sections");
                 });
 #pragma warning restore 612, 618
         }

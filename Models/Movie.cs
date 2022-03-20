@@ -1,5 +1,6 @@
 
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace REST_API.Models;
 
@@ -19,4 +20,7 @@ public class Movie
 
     [Range(1, 600, ErrorMessage = "The length of the movie must be between 1 and 600 minutes.")]
     public int MovieLengthInMinutes { get; set; }
+
+    [JsonIgnore]
+    public virtual List<Section> Sections { get; set; }
 }

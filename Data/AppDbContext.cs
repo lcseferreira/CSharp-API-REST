@@ -14,6 +14,7 @@ public class AppDbContext : DbContext
     public DbSet<MovieTheater> MovieTheaters { get; set; }
     public DbSet<Address> Addresses { get; set; }
     public DbSet<Manager> Managers { get; set; }
+    public DbSet<Section> Sections { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
@@ -21,13 +22,24 @@ public class AppDbContext : DbContext
             .HasOne(address => address.MovieTheater)
             .WithOne(movieTheater => movieTheater.Address)
             .HasForeignKey<MovieTheater>(movieTheater => movieTheater.AddressId)
-            .IsRequired();
+            .IsRequired(false);
 
         builder.Entity<MovieTheater>()
             .HasOne(movieTheater => movieTheater.Manager)
             .WithMany(manager => manager.MovieTheaters)
             .HasForeignKey(movieTheater => movieTheater.ManagerId)
-            .IsRequired();
+            .OnDelete(DeleteBehavior.Restrict)
+            .IsRequired(false);
+
+        builder.Entity<Section>()
+            .HasOne(section => section.MovieTheater)
+            .WithMany(movieTheater => movieTheater.Sections)
+            .HasForeignKey(section => section.MovieTheaterId);
+
+        builder.Entity<Section>()
+            .HasOne(section => section.Movie)
+            .WithMany(movie => movie.Sections)
+            .HasForeignKey(section => section.MovieId);
     }
 
     // Connection string configuration

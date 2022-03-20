@@ -10,6 +10,19 @@ public class MovieTheaterProfile : Profile
     {
         CreateMap<UpdateMovieTheaterDTO, MovieTheater>();
         CreateMap<CreateMovieTheaterDTO, MovieTheater>();
-        CreateMap<MovieTheater, ReadMovieTheaterDTO>();
+
+        CreateMap<MovieTheater, ReadMovieTheaterDTO>()
+            .ForMember(movieTheater => movieTheater.Address, opts => opts
+            .MapFrom(movieTheater => new
+            {
+                movieTheater.Address.Street,
+                movieTheater.Address.District,
+                movieTheater.Address.Number
+            }))
+            .ForMember(movieTheater => movieTheater.Manager, opts => opts
+            .MapFrom(movieTheater => new
+            {
+                movieTheater.Manager.ManagerName
+            }));
     }
 }

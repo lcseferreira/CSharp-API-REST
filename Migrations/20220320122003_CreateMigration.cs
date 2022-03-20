@@ -83,12 +83,38 @@ namespace MoviesAPI.Migrations
                         name: "FK_MovieTheaters_Addresses_AddressId",
                         column: x => x.AddressId,
                         principalTable: "Addresses",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_MovieTheaters_Managers_ManagerId",
                         column: x => x.ManagerId,
                         principalTable: "Managers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "Sections",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    MovieTheaterId = table.Column<int>(type: "int", nullable: false),
+                    MovieId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Sections", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Sections_Movies_MovieId",
+                        column: x => x.MovieId,
+                        principalTable: "Movies",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Sections_MovieTheaters_MovieTheaterId",
+                        column: x => x.MovieTheaterId,
+                        principalTable: "MovieTheaters",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 })
@@ -104,10 +130,23 @@ namespace MoviesAPI.Migrations
                 name: "IX_MovieTheaters_ManagerId",
                 table: "MovieTheaters",
                 column: "ManagerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Sections_MovieId",
+                table: "Sections",
+                column: "MovieId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Sections_MovieTheaterId",
+                table: "Sections",
+                column: "MovieTheaterId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Sections");
+
             migrationBuilder.DropTable(
                 name: "Movies");
 

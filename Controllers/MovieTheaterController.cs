@@ -22,17 +22,18 @@ public class MovieTheaterController : ControllerBase
     [HttpGet]
     public IActionResult GetMovieTheaters()
     {
-        return Ok(_context.MovieTheaters);
+        return Ok(_context.MovieTheaters.ToList());
+
     }
 
     [HttpGet("{id}")]
     public IActionResult GetMovieTheaterById(int id)
     {
-        MovieTheater movieTheater = _context.MovieTheaters.FirstOrDefault(movieTheater => movieTheater.Id == id);
-
+        // MovieTheater movieTheater = _context.MovieTheaters.FirstOrDefault(movieTheater => movieTheater.Id == id);
+        var movieTheater = _context.MovieTheaters.Find(id);
         if (movieTheater == null) return NotFound();
-
-        ReadMovieTheaterDTO movieTheaterDTO = _mapper.Map<ReadMovieTheaterDTO>(movieTheater);
+        // ReadMovieTheaterDTO movieTheaterDTO = _mapper.Map<ReadMovieTheaterDTO>(movieTheater);
+        var movieTheaterDTO = _mapper.Map<ReadMovieTheaterDTO>(movieTheater);
 
         return Ok(movieTheaterDTO);
     }
@@ -51,7 +52,7 @@ public class MovieTheaterController : ControllerBase
     [HttpPut("{id}")]
     public IActionResult UpdateMovieTheater([FromBody] UpdateMovieDTO movieTheaterDTO, int id)
     {
-        MovieTheater movieTheater = _context.MovieTheaters.FirstOrDefault(movieTheater => movieTheater.Id == id);
+        MovieTheater movieTheater = _context.MovieTheaters.Find(id);
 
         if (movieTheater == null) return NotFound();
 
@@ -64,7 +65,7 @@ public class MovieTheaterController : ControllerBase
     [HttpDelete("{id}")]
     public IActionResult RemoveMovieTheater(int id)
     {
-        MovieTheater movieTheater = _context.MovieTheaters.FirstOrDefault(movieTheater => movieTheater.Id == id);
+        MovieTheater movieTheater = _context.MovieTheaters.Find(id);
 
         if (movieTheater == null) return NotFound();
 

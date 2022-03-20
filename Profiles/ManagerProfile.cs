@@ -11,7 +11,7 @@ public class ManagerProfile : Profile
         CreateMap<Manager, ReadManagerDTO>()
             .ForMember(manager => manager.MovieTheaters, opts => opts
             .MapFrom(manager => manager.MovieTheaters.Select
-            (mT => new { mT.Id, mT.MovieTheaterName, mT.Address })));
+            (mT => new { mT.MovieTheaterName, mT.Address.Street, mT.Address.District, mT.Address.Number })));
 
         CreateMap<CreateManagerDTO, Manager>();
     }
