@@ -8,7 +8,11 @@ public class ManagerProfile : Profile
 {
     public ManagerProfile()
     {
-        CreateMap<Manager, ReadManagerDTO>();
+        CreateMap<Manager, ReadManagerDTO>()
+            .ForMember(manager => manager.MovieTheaters, opts => opts
+            .MapFrom(manager => manager.MovieTheaters.Select
+            (mT => new { mT.Id, mT.MovieTheaterName, mT.Address })));
+
         CreateMap<CreateManagerDTO, Manager>();
     }
 }
