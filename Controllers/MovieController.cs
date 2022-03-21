@@ -21,9 +21,10 @@ public class MovieController : ControllerBase
 
 
     [HttpGet] // GET movies
-    public IActionResult GetMovies()
+    public IActionResult GetMovies([FromQuery] int? ageRating = null)
     {
-        return Ok(_context.Movies.ToList());
+        if (ageRating == null) return Ok(_context.Movies.ToList());
+        return Ok(_context.Movies.Where(movie => movie.AgeRating <= ageRating).ToList());
     }
 
     [HttpGet("{id}")] // GET movie by ID

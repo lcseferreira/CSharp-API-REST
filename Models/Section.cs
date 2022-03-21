@@ -12,4 +12,5 @@ public class Section
     public virtual Movie Movie { get; set; }
     public int MovieTheaterId { get; set; }
     public int MovieId { get; set; }
+    public DateTime EndSection { get; set; }
 }

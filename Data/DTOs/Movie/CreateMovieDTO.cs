@@ -10,4 +10,5 @@ public class CreateMovieDTO
     public string Genre { get; set; }
 
     public int MovieLengthInMinutes { get; set; }
+    public int AgeRating { get; set; }
 }

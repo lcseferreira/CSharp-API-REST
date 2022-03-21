@@ -20,9 +20,26 @@ public class MovieTheaterController : ControllerBase
     }
 
     [HttpGet]
-    public IActionResult GetMovieTheaters()
+    public IActionResult GetMovieTheaters([FromQuery] string movieName)
     {
-        return Ok(_context.MovieTheaters.ToList());
+        List<MovieTheater> movieTheaters = _context.MovieTheaters.ToList();
+
+        if (movieTheaters == null) return NotFound();
+
+        if (!string.IsNullOrEmpty(movieName))
+        {
+            IEnumerable<MovieTheater> query =
+                from movieTheater in movieTheaters
+                where movieTheater.Sections.Any(section =>
+                section.Movie.Title == movieName)
+                select movieTheater;
+
+            movieTheaters = query.ToList();
+        }
+
+        List<ReadMovieTheaterDTO> movieTheaterDTOs = _mapper.Map<List<ReadMovieTheaterDTO>>(movieTheaters);
+
+        return Ok(movieTheaterDTOs);
 
     }
 
